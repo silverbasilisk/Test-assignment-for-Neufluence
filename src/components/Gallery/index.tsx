@@ -22,7 +22,7 @@ const Gallery: React.FC = () => {
     if(text!=='' && pokemonList.length > 0){
       setFilterList(pokemonList.filter((pokemon:any)=>{
         const comparedText = pokemon.id + pokemon.name
-        if (comparedText.includes(text)){
+        if (comparedText.includes(text.toLowerCase())){
           return true
         }else{
           return false
