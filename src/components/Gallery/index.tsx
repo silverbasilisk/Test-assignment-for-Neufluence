@@ -11,18 +11,21 @@ const Gallery: React.FC = () => {
   const pokemonList = useSelector(SelectPokemonList)
 
   useMemo(() => {
-    console.warn('pokemonList', pokemonList)
-  }, [ pokemonList ])
+    if(text===''){
+      setFilterList(pokemonList)
+    }  
+  }, [ pokemonList, text ])
 
 
   const handleSearch = () => {
     if(text === ''){
       setFilterList(pokemonList)
+      return
     }
     if(text!=='' && pokemonList.length > 0){
       setFilterList(pokemonList.filter((pokemon:any)=>{
         const comparedText = pokemon.id + pokemon.name
-        if (comparedText.includes(text.toLowerCase())){
+        if (comparedText.includes(text)){
           return true
         }else{
           return false
@@ -36,23 +39,24 @@ const Gallery: React.FC = () => {
   },[ text ]) 
 
   return (
-    <div className='h-screen w-full flex justify-center'>  
-      <div>
+    <div className='w-full flex justify-center p-4'>  
+      <div className='pb-4'>
         <div className='w-full'>
           <input type='text' value={text} placeholder={'Search a pokemon'} onChange={(e)=>setText(e.target.value)} className='w-[300px] focus:border-0 focus:outline-0'/>
         </div>
-
-        {
-          filtersList.length > 0 ?(          
-            filtersList.map((data:any, index: number)=>(
-              <PokemoneCard
-                key={ index }
-                data = { data }
-              />
-            ))
-          ):
-            <p> Not found</p>
-        }
+        <div className='h-[800px] overflow-y-scroll'>
+          {
+            filtersList.length > 0 ?(          
+              filtersList.map((data:any, index: number)=>(
+                <PokemoneCard
+                  key={ index }
+                  data = { data }
+                />
+              ))
+            ):
+              <p> Not found</p>
+          }
+        </div>      
       </div> 
     </div>         
   );

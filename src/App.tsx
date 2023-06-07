@@ -9,7 +9,7 @@ function App() {
   return (
     <div className='App '>
       <Header />
-      <div className='p-[40px] pt-40 flex justify-center'>
+      <div className='p-[40px] pt-20 flex justify-center'>
         <Browser>
           <Suspense fallback={<div className='h-screen text-white'>Loading...</div>}>
             <Routes>
